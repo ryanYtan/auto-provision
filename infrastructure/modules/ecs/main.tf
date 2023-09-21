@@ -169,7 +169,9 @@ resource "aws_ecs_service" "ecs_service" {
     aws_lb_listener.alb_listener_forward1,
     aws_lb_listener.alb_listener_forward2,
     aws_lb_listener.alb_listener_redirect_http,
-    aws_iam_role_policy_attachment.ecs_task_execution_role
+    aws_iam_role_policy_attachment.ecs_task_execution_role,
+    #hopefully ensure that DB is provisioned first before the ECS service
+    var.db_dependency,
   ]
 }
 

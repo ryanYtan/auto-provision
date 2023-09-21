@@ -59,3 +59,9 @@ variable "target_domain" {
   type        = string
   description = "Domain of the web application"
 }
+
+variable "db_dependency" {
+  type        = any
+  description = "A value that ensures that the ECS Service depends on the creation of the RDS database"
+  default     = []
+}

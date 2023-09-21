@@ -73,6 +73,8 @@ module "ecs" {
   app_image           = "ryanty/${var.app_name}:latest"
 
   target_domain = "${var.app_name}-test-app.link"
+
+  db_dependency = module.db.db_master_user_secret_arn
 }
 
 resource "aws_cloudwatch_log_group" "app_log_group" {
