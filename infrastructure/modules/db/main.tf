@@ -1,6 +1,6 @@
 locals {
-  db_name   = "${var.app_name}${var.env}db"
-  db_username = "${var.app_name}${var.env}_user"
+  db_name   = "${var.app_name}db"
+  db_username = "${var.app_name}_user"
 }
 
 module "db" {
@@ -24,6 +24,10 @@ module "db" {
   port      = 5432
   multi_az  = true
   db_subnet_group_name = var.database_subnet_group
+
+  vpc_security_group_ids = [
+    aws_security_group.rds_sg.id
+  ]
 }
 
 resource "aws_ssm_parameter" "db_endpoint" {
@@ -38,4 +42,16 @@ resource "aws_ssm_parameter" "db_name" {
   description = "Database name"
   type        = "String"
   value       = module.db.db_instance_name
+}
+
+resource "aws_security_group" "rds_sg" {
+  name        = "rds-sg"
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = var.private_subnets_cidr_blocks
+  }
 }

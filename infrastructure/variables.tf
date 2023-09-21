@@ -1,9 +1,3 @@
-variable "env" {
-  type        = string
-  default     = "prod"
-  description = "Infrastructure environment"
-}
-
 variable "app_name" {
   type        = string
   default     = "redwood"

@@ -1,31 +1,16 @@
-variable "env" {
-  type        = string
-  description = "Environment"
-}
-
 variable "app_name" {
   type        = string
-  description = "Name of the app"
+  description = "Application name"
 }
 
 variable "region" {
   type        = string
-  description = "Region name"
+  description = "AWS Region"
 }
 
 variable "vpc_id" {
   type        = string
   description = "VPC ID"
-}
-
-variable "db_master_user_secret_arn" {
-  type        = string
-  description = "Master user secret arn"
-}
-
-variable "db_ssm_path" {
-  type        = string
-  description = "Start of path of SSM parameters"
 }
 
 variable "public_subnets" {
@@ -38,17 +23,39 @@ variable "private_subnets" {
   description = "IDs of private subnets"
 }
 
+variable "app_port" {
+  type        = number
+  description = "Port that the application is listening on"
+}
+
 variable "ecs_task_count" {
   type        = number
   description = "Desired number of ECS tasks"
 }
 
-variable "ecs_container_name" {
+variable "fargate_cpu" {
+  type        = number
+  description = "CPU speed in MHz"
+  default     = 1024
+}
+
+variable "fargate_mem" {
+  type        = number
+  description = "Memory in MB"
+  default     = 2048
+}
+
+variable "app_container_name" {
   type        = string
   description = "Container name"
 }
 
-variable "ecs_container_image" {
+variable "app_image" {
   type        = string
   description = "Container image"
+}
+
+variable "target_domain" {
+  type        = string
+  description = "Domain of the web application"
 }
