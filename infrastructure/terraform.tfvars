@@ -10,7 +10,7 @@ app_image = "ryanty/redwood:latest"
 
 app_port = 8080
 
-ecs_task_count = 6
+ecs_task_count = 8
 
 fargate_cpu = 1024
 
