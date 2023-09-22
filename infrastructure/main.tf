@@ -18,7 +18,6 @@ provider "aws" {
 }
 
 locals {
-  region            = "ap-southeast-1"
   vpc_cidr          = "10.0.0.0/16"
   azs               = slice(data.aws_availability_zones.available.names, 0, 3)
 }
@@ -58,21 +57,21 @@ module "ecs" {
   source    = "./modules/ecs"
   app_name  = var.app_name
   vpc_id    = module.vpc.vpc_id
-  region    = local.region
+  region    = var.region
 
   public_subnets  = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
 
-  app_port = 8080
-  ecs_task_count = 6
+  app_port = var.app_port
+  ecs_task_count = var.ecs_task_count
 
-  fargate_cpu = 1024
-  fargate_mem = 2048
+  fargate_cpu = var.fargate_cpu
+  fargate_mem = var.fargate_mem
 
-  app_container_name  = "${var.app_name}-app"
-  app_image           = "ryanty/${var.app_name}:latest"
+  app_container_name  = var.app_container_name
+  app_image           = var.app_image
 
-  target_domain = "${var.app_name}-test-app.link"
+  target_domain = var.app_domain_name
 
   db_dependency = module.db.db_master_user_secret_arn
 }
