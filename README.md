@@ -15,6 +15,14 @@ Configure AWS credentials
 ```
 aws configure
 ```
+An initial setting up of the remote infrastructure (mainly an S3 bucket for
+handling TF state) must be done first. Do this by going into `remote-state`:
+```bash
+cd infrastructure/remote-state
+terraform init
+terraform plan
+terraform apply
+```
 To deploy the infrastructure to AWS
 ```bash
 cd infrastructure
